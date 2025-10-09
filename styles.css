@@ -20,10 +20,16 @@ font-weight: 900;
 font-style: normal;
 font-style: italic; */
 
-/* 
-* {
-    outline: 1px solid red !important;
+/* * {
+  outline: 1px solid red !important;
 } */
+
+html {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
 
 body {
   margin: 0;
@@ -31,18 +37,40 @@ body {
   text-align: center;
   height: 100vh;
   overflow-x: hidden;
-  background-color: #ffffff;
+  background-color: white; /* default background */
   font-family: "rig-sans", sans-serif;
   color: #202020;
+  transition: background-color 0.3s ease; /* smooth transition */
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body:has(#welcome-view.active) {
+  background-color: #1995fa;
+  overflow: hidden;
+}
+
+body:has(#quiz-view.active) {
+  background-color: white;
+  overflow: hidden;
+}
+
+body:has(#stats-view.active) {
+  background-color: white;
 }
 
 .view {
   display: none;
   width: 100%;
-  height: 100vh;
-  position: absolute;
+  height: 100%;
+  position: fixed;
   top: 0;
   left: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-top: env(safe-area-inset-top); /* Add iOS safe area support */
 }
 
 .view.active {
@@ -51,8 +79,8 @@ body {
 }
 
 #familykarakters {
-  position: fixed;
-  bottom: 0;
+  position: absolute;
+  bottom: 0px;
   left: 50%;
   transform: translateX(-50%);
   width: 500px;
@@ -63,7 +91,6 @@ body {
 #welcome-view {
   justify-content: center;
   align-items: center;
-  background-color: #1995fa;
   color: white;
 }
 
@@ -93,14 +120,19 @@ body {
   align-items: center;
 }
 
-.quiz-header {
-  position: absolute;
-  top: 4rem;
-  left: 50%;
-  transform: translateX(-50%);
+#quiz-content {
+  justify-content: center;
+  align-items: center;
   text-align: center;
-  width: 80%;
+}
+
+.quiz-header {
+  position: relative;
+  text-align: center;
+  max-width: 100%;
   font-size: 1em;
+  margin-bottom: 0px;
+  padding: 20px;
 }
 
 .options-container {
@@ -126,7 +158,7 @@ button {
   border-radius: 20px;
   cursor: pointer;
   transition: transform 0.2s;
-  min-height: 200px;
+  min-height: 20vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -177,8 +209,13 @@ button {
 
 #stats-view {
   align-items: center;
-  margin-top: 20px;
+  margin-top: 0; /* Remove margin that was causing the shift */
+  padding-top: 20px; /* Add padding instead */
   font-size: 1em;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .stats-container {
@@ -199,7 +236,6 @@ button {
 .stat-bar-container {
   display: flex;
   height: 300px;
-  background: #f0f0f0;
   border-radius: 10px;
   position: relative;
   overflow: hidden;
@@ -210,7 +246,7 @@ button {
   position: absolute;
   bottom: 0;
   width: 100%;
-  background: #1995fa;
+  background-color: #1995fa;
   transition: height 1s ease-out;
 }
 
@@ -221,7 +257,7 @@ button {
 }
 
 #agora-stat {
-  background: #ffbf00;
+  background-color: #ffbf00;
 }
 
 .stat-percentage {
@@ -250,8 +286,8 @@ button {
 
 #back-button {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
+  bottom: 2%;
+  left: 2%;
   z-index: 100;
   border-radius: 20px;
   background-color: #c2c2c2;
@@ -286,7 +322,7 @@ button {
   position: absolute;
   width: 8px;
   height: 100%;
-  background: rgb(49, 49, 49);
+  background-color: rgb(49, 49, 49);
   top: 0;
   left: 50%;
   border-radius: 25px;
@@ -332,6 +368,17 @@ h3 {
   color: #202020;
   font-weight: 800;
   font-size: 1.5em;
+  max-width: 90%;
+}
+
+#regulier-count {
+  background-color: #1995fa;
+  color: white;
+}
+
+#agora-count {
+  background-color: #ffbf00;
+  color: white;
 }
 
 .bottomline {
@@ -342,6 +389,73 @@ h3 {
   text-align: center;
   font-size: 0.8em;
   color: #666;
+}
+
+.counter-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.counter-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.counter-group label {
+  font-weight: 600;
+  font-size: 1.2em;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.counter-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  border: none;
+  background-color: #f0f0f0;
+  color: #202020;
+  font-size: 1.5em;
+  cursor: pointer;
+  padding: 0;
+}
+
+.counter input {
+  width: 80px;
+  height: 40px;
+  text-align: center;
+  font-size: 1.2em;
+  border: 2px solid #f0f0f0;
+  border-radius: 10px;
+  /* Add these lines to remove spinners */
+  -moz-appearance: textfield;
+}
+
+/* Remove Spinners in Webkit browsers */
+.counter input::-webkit-outer-spin-button,
+.counter input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#show-results {
+  margin-top: 20px;
+  padding: 15px 30px;
+  font-size: 1.2em;
+  background-color: #1995fa;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
 }
 
 @media (max-width: 600px) {

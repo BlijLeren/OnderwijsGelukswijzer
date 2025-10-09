@@ -2,10 +2,19 @@
 <html lang="nl">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-touch-fullscreen" content="yes" />
     <title>Onderwijs Kieswijzer</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="https://use.typekit.net/cjm1bud.css" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
   </head>
   <body>
     <div id="welcome-view" class="view active">
@@ -15,7 +24,7 @@
           Ontdek samen welk onderwijs <br />
           het beste bij je kind past.
         </p>
-        <button id="start-button">Begin de Kieswijzer</button>
+        <button id="start-button">Wat zeggen mijn keuzes?</button>
       </div>
       <svg
         id="familykarakters"
@@ -76,19 +85,64 @@
     </div>
 
     <div id="quiz-view" class="view">
-      <div class="quiz-header">
-        <div id="progress"></div>
-        <h2 id="current-topic"></h2>
-      </div>
-      <button id="back-button" style="display: none">←</button>
-      <div class="options-container">
-        <div class="option" id="option1">
-          <p class="child-text"></p>
-          <p class="parent-text"></p>
+      <div id="quiz-content">
+        <div class="quiz-header">
+          <h2>Hoeveel kaartjes heb je van elke kleur?</h2>
         </div>
-        <div class="option" id="option2">
-          <p class="child-text"></p>
-          <p class="parent-text"></p>
+        <div class="counter-container">
+          <div class="counter-group">
+            <label>Blauw</label>
+            <div class="counter">
+              <button
+                class="counter-btn"
+                data-action="decrease"
+                data-color="regulier"
+              >
+                -
+              </button>
+              <input
+                type="number"
+                id="regulier-count"
+                value="0"
+                min="0"
+                readonly
+              />
+              <button
+                class="counter-btn"
+                data-action="increase"
+                data-color="regulier"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <div class="counter-group">
+            <label>Geel</label>
+            <div class="counter">
+              <button
+                class="counter-btn"
+                data-action="decrease"
+                data-color="agora"
+              >
+                -
+              </button>
+              <input
+                type="number"
+                id="agora-count"
+                value="0"
+                min="0"
+                readonly
+              />
+              <button
+                class="counter-btn"
+                data-action="increase"
+                data-color="agora"
+              >
+                +
+              </button>
+            </div>
+          </div>
+          <button id="show-results">Bekijk resultaten</button>
         </div>
       </div>
     </div>
@@ -136,29 +190,6 @@
         </div>
         <div class="stat-label">Regulier</div>
         <div class="stat-label">Agora</div>
-      </div>
-
-      <h3>Per thema</h3>
-      <div class="stats-container2">
-        <div class="stat-label">Structuur</div>
-        <div class="stat-bar-container">
-          <span class="stat-percentage" id="structuur-percentage"></span>
-        </div>
-
-        <div class="stat-label">Nieuwsgierig</div>
-        <div class="stat-bar-container">
-          <span class="stat-percentage" id="nieuwsgierigheid-percentage"></span>
-        </div>
-
-        <div class="stat-label">Samenwerking</div>
-        <div class="stat-bar-container">
-          <span class="stat-percentage" id="samenwerking-percentage"></span>
-        </div>
-
-        <div class="stat-label">Motivatie</div>
-        <div class="stat-bar-container">
-          <span class="stat-percentage" id="motivatie-percentage"></span>
-        </div>
       </div>
 
       <h3>Wat moeten we nu kiezen?</h3>
