@@ -417,6 +417,10 @@ h3 {
   gap: 10px;
 }
 
+.glink {
+  color: #ffbf00;
+}
+
 .counter-btn {
   width: 40px;
   height: 40px;
