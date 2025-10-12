@@ -29,6 +29,8 @@ html {
   height: 100%;
   width: 100%;
   overflow: hidden;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
 }
 
 body {
@@ -45,6 +47,8 @@ body {
   width: 100%;
   height: 100%;
   overflow: hidden;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 body:has(#welcome-view.active) {
@@ -419,6 +423,18 @@ h3 {
 
 .glink {
   color: #ffbf00;
+  text-decoration: none;
+  -webkit-text-fill-color: #ffbf00;
+}
+
+.glink:visited {
+  color: #ffbf00;
+  -webkit-text-fill-color: #ffbf00;
+}
+
+.glink:link {
+  color: #ffbf00;
+  -webkit-text-fill-color: #ffbf00;
 }
 
 .counter-btn {
